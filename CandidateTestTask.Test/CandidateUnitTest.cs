@@ -1,3 +1,4 @@
+using CandidateTestTask.Builder;
 using CandidateTestTask.Controllers;
 using CandidateTestTask.Custom;
 using CandidateTestTask.Models;
@@ -31,17 +32,15 @@ namespace CandidateTestTask.Test
             var candidateService = new CandidateService();
 
             var _controller = new CandidateController(logger, candidateService);
-            var _model = new Candidate()
-            {
-                FirstName = firstname,
-                LastName = lastname,
-                Email = email,
-                PhoneNumber = phoneNumber,
-                TimeIntervalToCall = timeIntervalToCall,
-                LinkedInProfileUrl = linkedInProfile,
-                GithubProfileUrl = githubProfile,
-                FreeTextComment = freeTextComment
-            };
+            var _model = new CandidateBuilder()
+             .AddFirstname(firstname)
+             .AddLastname(lastname)
+             .AddEmail(email)
+             .AddPhoneNumber(phoneNumber)
+             .AddTimeIntervalToCall(timeIntervalToCall)
+             .AddGithubProfileUrl(githubProfile)
+             .AddLinkedInProfileUrl(linkedInProfile)
+             .AddFreeTextComment(freeTextComment).Build();
 
             //ACT
             var result = _controller.Create(_model);
@@ -59,17 +58,16 @@ namespace CandidateTestTask.Test
             var candidateService = new CandidateService();
 
             var _controller = new CandidateController(logger, candidateService);
-            var _model = new Candidate()
-            {
-                FirstName = firstname,
-                LastName = lastname,
-                Email = email,
-                PhoneNumber = phoneNumber,
-                TimeIntervalToCall = timeIntervalToCall,
-                LinkedInProfileUrl = linkedInProfile,
-                GithubProfileUrl = githubProfile,
-                FreeTextComment = freeTextComment
-            };
+            var _model = new CandidateBuilder()
+                .AddFirstname(firstname)
+                .AddLastname(lastname)
+                .AddEmail(email)
+                .AddPhoneNumber(phoneNumber)
+                .AddTimeIntervalToCall(timeIntervalToCall)
+                .AddGithubProfileUrl(githubProfile)
+                .AddLinkedInProfileUrl(linkedInProfile)
+                .AddFreeTextComment(freeTextComment).Build();
+            
             _controller.ModelState.AddModelError("", "invalid data");
 
             //ACT
