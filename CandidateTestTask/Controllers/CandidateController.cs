@@ -1,5 +1,7 @@
+using CandidateTestTask.Custom;
 using CandidateTestTask.Models;
 using CandidateTestTask.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CandidateTestTask.Controllers
@@ -18,18 +20,16 @@ namespace CandidateTestTask.Controllers
             _candidateService = candidateService;
         }
 
+        [CustomModelValidate]
         [HttpPost(Name = "Create")]
-        public IActionResult Post(Candidate candidate)
+        public IActionResult Create([FromBody] Candidate candidate)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
-
             }
 
-            var csv = _candidateService.Create(candidate);           
-
-
+            var csv = _candidateService.Create(candidate);
             return Ok(candidate);
         }
     }

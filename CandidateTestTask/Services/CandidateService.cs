@@ -14,10 +14,8 @@ namespace CandidateTestTask.Services
     {
         public StringBuilder Create(Candidate model)
         {
-            //before your loop
             var csv = new StringBuilder();
 
-            //Suggestion made by KyleMit
             var newLine = $"{model.FirstName}," +
                           $"{model.LastName}," +
                           $"{model.PhoneNumber}," +
@@ -27,7 +25,7 @@ namespace CandidateTestTask.Services
                           $"{model.GithubProfileUrl}," +
                           $"{model.FreeTextComment}";                
             csv.AppendLine(newLine);
-            var path = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location.Substring(0, Assembly.GetEntryAssembly().Location.IndexOf("bin\\")));
+            var path = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location.Substring(0, Assembly.GetEntryAssembly().Location.IndexOf("bin\\"))).Replace("CandidateTestTask.Test", "CandidateTestTask");
             var filePath = Path.Combine(path + "\\CandidateCSV\\", $"{model.FirstName}-{model.LastName}-{DateTime.Now.Ticks}.csv");
             File.WriteAllText(filePath, csv.ToString());
 

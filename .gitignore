@@ -3,3 +3,5 @@ CandidateTestTask.Test/obj/
 CandidateTestTask/obj/
 CandidateTestTask/bin/Debug/net6.0/appsettings.Development.json
 CandidateTestTask/bin/
+CandidateTestTask.Test/bin/
+CandidateTestTask/CandidateCSV/

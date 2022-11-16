@@ -1,4 +1,8 @@
+using CandidateTestTask.Custom;
 using CandidateTestTask.Services;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Authorization;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,8 +10,16 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddScoped<ICandidateService, CandidateService>();
 
+builder.Services.Configure<ApiBehaviorOptions>(apiBehaviorOptions => {
+    apiBehaviorOptions.SuppressModelStateInvalidFilter = true;
+});
+
 //
-builder.Services.AddControllers();
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add(new CustomModelValidate());
+});
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
